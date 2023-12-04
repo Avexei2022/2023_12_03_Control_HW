@@ -1,0 +1,24 @@
+ubuntu@ubuntu-GB:~$ cat > Pets.txt
+Собаки
+Кошки
+Хомяки
+
+ubuntu@ubuntu-GB:~$ cat > PackAnimals.txt
+Лошади
+Верблюды
+Ослы
+
+ubuntu@ubuntu-GB:~$ cat Pets.txt PackAnimals.txt > Union.txt
+ubuntu@ubuntu-GB:~$ cat Union.txt
+Собаки
+Кошки
+Хомяки
+Лошади
+Верблюды
+Ослы
+
+ubuntu@ubuntu-GB:~$ mv Union.txt HumanFriends.txt
+
+ubuntu@ubuntu-GB:~$ ls
+Desktop    Downloads  HumanFriends.txt  PackAnimals.txt  Pictures  snap       Videos
+Documents  hello.py   Music             Pets.txt         Public    Templates  win_downloads
