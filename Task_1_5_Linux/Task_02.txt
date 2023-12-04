@@ -1,0 +1,9 @@
+ubuntu@ubuntu-GB:~$ mv HumanFriends.txt ~/task_2
+
+ubuntu@ubuntu-GB:~$ ls
+Desktop  Documents  Downloads  hello.py  Music  PackAnimals.txt  Pets.txt  Pictures  Public  snap  task_2  Templates  Videos  win_downloads
+
+ubuntu@ubuntu-GB:~$ cd task_2
+
+ubuntu@ubuntu-GB:~/task_2$ ls
+HumanFriends.txt

@@ -1,0 +1,101 @@
+ubuntu@ubuntu-GB:~$ cat > Pets.txt
+Собаки
+Кошки
+Хомяки
+
+ubuntu@ubuntu-GB:~$ cat > PackAnimals.txt
+Лошади
+Верблюды
+Ослы
+
+ubuntu@ubuntu-GB:~$ cat Pets.txt PackAnimals.txt > Union.txt
+ubuntu@ubuntu-GB:~$ cat Union.txt
+Собаки
+Кошки
+Хомяки
+Лошади
+Верблюды
+Ослы
+
+ubuntu@ubuntu-GB:~$ mv Union.txt HumanFriends.txt
+
+ubuntu@ubuntu-GB:~$ ls
+Desktop    Downloads  HumanFriends.txt  PackAnimals.txt  Pictures  snap       Videos
+Documents  hello.py   Music             Pets.txt         Public    Templates  win_downloads
+
+ubuntu@ubuntu-GB:~$ mv HumanFriends.txt ~/task_2
+
+ubuntu@ubuntu-GB:~$ ls
+Desktop  Documents  Downloads  hello.py  Music  PackAnimals.txt  Pets.txt  Pictures  Public  snap  task_2  Templates  Videos  win_downloads
+
+ubuntu@ubuntu-GB:~$ cd task_2
+
+ubuntu@ubuntu-GB:~/task_2$ ls
+HumanFriends.txt
+
+ubuntu@ubuntu-GB:~$ sudo dpkg -i ./Downloads/mysql-apt-config_0.8.28-1_all.deb 
+[sudo] password for ubuntu: 
+(Reading database ... 224281 files and directories currently installed.)
+Preparing to unpack .../mysql-apt-config_0.8.28-1_all.deb ...
+Unpacking mysql-apt-config (0.8.28-1) over (0.8.28-1) ...
+Setting up mysql-apt-config (0.8.28-1) ...
+
+ubuntu@ubuntu-GB:~$ sudo apt update
+Hit:1 http://ru.archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://ru.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]                                                   
+Get:4 http://ru.archive.ubuntu.com/ubuntu jammy-backports InRelease [109 kB]                                                
+Get:5 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [1 211 kB]                                   
+Hit:6 http://repo.mysql.com/apt/ubuntu jammy InRelease                                        
+Get:7 http://security.ubuntu.com/ubuntu jammy-security/main i386 Packages [373 kB]          
+Get:8 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [1 002 kB]  
+Get:9 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main i386 Packages [537 kB]  
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [193 kB]    
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [1 164 kB]
+Get:12 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [189 kB]      
+Get:13 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [807 kB]    
+Get:14 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [253 kB]           
+Get:15 http://security.ubuntu.com/ubuntu jammy-security/universe i386 Packages [573 kB]         
+Get:16 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [150 kB]          
+Get:17 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [1 185 kB]                                                   
+Get:18 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted i386 Packages [32,8 kB]                                                     
+Get:19 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [192 kB]                                                     
+Get:20 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1 010 kB]                                                     
+Get:21 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe i386 Packages [671 kB]                                                        
+Get:22 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [224 kB]                                                       
+Get:23 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe i386 Packages [16,8 kB]                                                     
+Get:24 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [27,8 kB]                                                    
+Get:25 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16,5 kB]                                                    
+Fetched 10,2 MB in 11s (963 kB/s)                                                                                                               
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+19 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+ubuntu@ubuntu-GB:~$ sudo apt install mysql-server
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+mysql-server is already the newest version (8.0.35-1ubuntu22.04).
+0 to upgrade, 0 to newly install, 0 to remove and 19 not to upgrade.
+
+ubuntu@ubuntu-GB:~$ sudo dpkg -i ./Downloads/htop_3.2.2-2_amd64.deb 
+Selecting previously unselected package htop.
+(Reading database ... 224281 files and directories currently installed.)
+Preparing to unpack .../htop_3.2.2-2_amd64.deb ...
+Unpacking htop (3.2.2-2) ...
+Setting up htop (3.2.2-2) ...
+Processing triggers for mailcap (3.70+nmu1ubuntu1) ...
+Processing triggers for gnome-menus (3.36.0-1ubuntu3) ...
+Processing triggers for desktop-file-utils (0.26-1ubuntu3) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Processing triggers for man-db (2.10.2-1) ...
+
+ubuntu@ubuntu-GB:~$ sudo dpkg -r htop
+(Reading database ... 224292 files and directories currently installed.)
+Removing htop (3.2.2-2) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+Processing triggers for mailcap (3.70+nmu1ubuntu1) ...
+Processing triggers for gnome-menus (3.36.0-1ubuntu3) ...
+Processing triggers for desktop-file-utils (0.26-1ubuntu3) ...
