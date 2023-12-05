@@ -135,8 +135,11 @@ public class ConsoleUI implements View{
             if (command_id < 0) {
                 System.out.println(s_error_value + "команде. " + s_stop_train);
             } else {
+                System.out.println("\nПитомец: ");
+                presenter.getAnimalNameByID(animal_id);
+                System.out.println(" обучен командам: ");
                 presenter.trainAnimal(animal_id, command_id);
-                presenter.printAnimalList();
+                System.out.println(".\n");
             }
         }
     }
