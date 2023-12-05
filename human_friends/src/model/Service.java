@@ -75,11 +75,13 @@ public class Service {
 
     public String trainAnimal(int animal_id, int command_id) {
         PetCommand pet_command = new PetCommand(animal_id, command_id);
+        String animal_name = animal_list.getNameById(animal_id);
+        String command_name = command_list.getNameById(command_id);
         String info;
         if (ac_list.addACToList(pet_command)){
-            info = "\n Команда: " + " добавлена в список.\n";
+            info = "\n Питомец " + animal_name + " обучен команде " + command_name + ".\n";
         } else {
-            info =  "\n Команда: " + " уже существует в списке.\n";
+            info =  "\n Питомец " + animal_name + " уже был обучен команде " + command_name + ".\n";
         }
         return info;
     }
