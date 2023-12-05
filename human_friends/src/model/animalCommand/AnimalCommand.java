@@ -1,6 +1,8 @@
 package model.animalCommand;
 
-public class AnimalCommand {
+import java.io.Serializable;
+
+public class AnimalCommand implements ACItemsList, Serializable {
     private int animal_id;
     private int command_id;
 
