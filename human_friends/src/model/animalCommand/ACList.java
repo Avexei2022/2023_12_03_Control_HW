@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ACList<E extends ACItemsList> implements Serializable, Iterable<E> {
+public class ACList<E extends PetCommand> implements Serializable, Iterable<E> {
     private final List<E> ac_list;
     public ACList(List<E> ac_list){
         this.ac_list = ac_list;

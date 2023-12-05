@@ -2,7 +2,7 @@ package model;
 
 import model.animalCommand.ACItemsList;
 import model.animalCommand.ACList;
-import model.animalCommand.AnimalCommand;
+import model.animalCommand.PetCommand;
 import model.animals.Animal;
 import model.animals.AnimalList;
 import model.base.Base;
@@ -20,13 +20,13 @@ public class Service {
     private final TypeList type_list;
     private final AnimalList animal_list;
     private final CommandList command_list;
-    private final ACList ac_list;
+    private final ACList<PetCommand> ac_list;
     public Service (){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();
         command_list = new CommandList();
-        ac_list = new ACList();
+        ac_list = new ACList<>();
     }
 
     public String addGroup(String name) {
@@ -74,9 +74,9 @@ public class Service {
     }
 
     public String trainAnimal(int animal_id, int command_id) {
-        AnimalCommand animal_command = new AnimalCommand(animal_id, command_id);
+        PetCommand pet_command = new PetCommand(animal_id, command_id);
         String info;
-        if (ac_list.addACToList((ACItemsList) animal_command) ){
+        if (ac_list.addACToList(pet_command)){
             info = "\n Команда: " + " добавлена в список.\n";
         } else {
             info =  "\n Команда: " + " уже существует в списке.\n";
