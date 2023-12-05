@@ -1,9 +1,12 @@
 package model;
 
+import model.animalCommand.ACItemsList;
+import model.animalCommand.ACList;
+import model.animalCommand.PetCommand;
 import model.animals.Animal;
 import model.animals.AnimalList;
 import model.base.Base;
-import model.commands.AnimalCommand;
+import model.commands.BaseCommand;
 import model.commands.CommandList;
 import model.groups.AnimalGroup;
 import model.groups.GroupList;
@@ -17,11 +20,13 @@ public class Service {
     private final TypeList type_list;
     private final AnimalList animal_list;
     private final CommandList command_list;
+    private final ACList<PetCommand> ac_list;
     public Service (){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();
         command_list = new CommandList();
+        ac_list = new ACList<>();
     }
 
     public String addGroup(String name) {
@@ -58,12 +63,25 @@ public class Service {
     }
 
     public String addCommand(String name) {
-        AnimalCommand animal_command = new AnimalCommand(name);
+        BaseCommand base_command = new BaseCommand(name);
         String info;
-        if (command_list.addBaseToList(animal_command)){
+        if (command_list.addBaseToList(base_command)){
             info = "\n Команда: " + name + " добавлена в список.\n";
         } else {
             info =  "\n Команда: " + name + " уже существует в списке.\n";
+        }
+        return info;
+    }
+
+    public String trainAnimal(int animal_id, int command_id) {
+        PetCommand pet_command = new PetCommand(animal_id, command_id);
+        String animal_name = animal_list.getNameById(animal_id);
+        String command_name = command_list.getNameById(command_id);
+        String info;
+        if (ac_list.addACToList(pet_command)){
+            info = "\n Питомец " + animal_name + " обучен команде " + command_name + ".\n";
+        } else {
+            info =  "\n Питомец " + animal_name + " уже был обучен команде " + command_name + ".\n";
         }
         return info;
     }
@@ -93,6 +111,14 @@ public class Service {
 
     public boolean checkIsType(int type_id) {
         return type_list.checkIsId(type_id);
+    }
+
+    public boolean checkIsAnimal(int animal_id) {
+        return animal_list.checkIsId(animal_id);
+    }
+
+    public boolean checkIsCommand(int command_id) {
+        return command_list.checkIsId(command_id);
     }
 
     public String getInfoGroupList() {
@@ -156,6 +182,7 @@ public class Service {
             return "\nСписок команд животных пуст.\n";
         }
     }
+
 
 
 }

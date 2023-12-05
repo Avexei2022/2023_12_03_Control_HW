@@ -1,9 +1,7 @@
 package model.animals;
 
-import model.commands.AnimalCommand;
 import model.types.AnimalType;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Animal extends AnimalType implements AnimalItemsList{
     private int id;

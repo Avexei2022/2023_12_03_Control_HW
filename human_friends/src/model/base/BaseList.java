@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class BaseList <E extends BaseItemsList> implements Serializable, Iterable<E>{
+public abstract class BaseList <E extends Base> implements Serializable, Iterable<E>{
     private int id;
     private final List<E> base_list;
     public BaseList(List<E> base_list) {
@@ -42,15 +42,14 @@ public abstract class BaseList <E extends BaseItemsList> implements Serializable
         return null;
     }
 
-    // TODO: 04.12.2023  
-//    public String getNameById(int id){
-//        for (E base : baseListE){
-//            if (base.getId() == id){
-//                return base.getName();
-//            }
-//        }
-//        return null;
-//    }
+    public String getNameById(int id){
+        for (E base : base_list){
+            if (base.getId() == id){
+                return base.getName();
+            }
+        }
+        return null;
+    }
 
     public boolean checkIsId(int id){
         for (E base : base_list){
