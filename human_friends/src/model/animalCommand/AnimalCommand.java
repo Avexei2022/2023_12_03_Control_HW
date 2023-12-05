@@ -10,19 +10,19 @@ public class AnimalCommand {
         this.command_id = command_id;
     }
 
-    public int getCommand_id() {
+    public int getCommandId() {
         return command_id;
     }
 
-    public void setCommand_id(int command_id) {
+    public void setCommandId(int command_id) {
         this.command_id = command_id;
     }
 
-    public int getAnimal_id() {
+    public int getAnimalId() {
         return animal_id;
     }
 
-    public void setAnimal_id(int animal_id) {
+    public void setAnimalId(int animal_id) {
         this.animal_id = animal_id;
     }
 
