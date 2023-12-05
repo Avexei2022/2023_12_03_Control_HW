@@ -14,6 +14,8 @@ import model.types.AnimalType;
 import model.types.TypeList;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Service {
     private final GroupList group_list;
@@ -151,7 +153,7 @@ public class Service {
         }
     }
 
-    private String getInfoAnimalList() {
+    public String getInfoAnimalList() {
         if (animal_list.checkIsEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок животных.\n");
@@ -162,6 +164,8 @@ public class Service {
                 sb.append(type_list.getById(((Animal) animal).getParentId())
                         .toString());
                 sb.append(animal);
+                sb.append(" | Обучен командам: ");
+                sb.append(getInfoPetCommandByAnimalID(animal.getId()));
                 sb.append("\n");
             }
             return sb.toString();
@@ -169,7 +173,7 @@ public class Service {
             return "\nСписок животных пуст.\n";
         }
     }
-    private String getInfoCommandList() {
+    public String getInfoCommandList() {
         if (command_list.checkIsEmpty()){
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок команд животных.\n");
@@ -183,6 +187,17 @@ public class Service {
         }
     }
 
+    public String getInfoPetCommandByAnimalID(int animal_id){
+        List<Integer> pet_command_list = ac_list.getByAnimalId(animal_id);
+        StringBuilder sb = new StringBuilder();
+        for (Integer i: pet_command_list) {
+            sb.append(command_list.getNameById(i));
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
 
-
+    public String getAnimalNameByID(int animal_id) {
+        return animal_list.getNameById(animal_id);
+    }
 }

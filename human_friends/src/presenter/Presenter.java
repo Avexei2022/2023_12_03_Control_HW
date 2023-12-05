@@ -61,7 +61,9 @@ public class Presenter {
         view.printAnswer(info);
     }
 
-    public void trainAnimal() {
+    public void getInfoPetCommandByAnimalID(int animal_id) {
+        String info = service.getInfoPetCommandByAnimalID(animal_id);
+        view.printAnswer(info);
     }
 
     public void counter() {
@@ -95,4 +97,8 @@ public class Presenter {
     }
 
 
+    public void getAnimalNameByID(int animalId) {
+        String info = service.getAnimalNameByID(animalId);
+        view.printAnswer(info);
+    }
 }

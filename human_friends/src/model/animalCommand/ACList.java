@@ -25,11 +25,11 @@ public class ACList<E extends PetCommand> implements Serializable, Iterable<E> {
         return false;
     }
 
-    public List<E> getByAnimalId(int animal_id){
-        List<E> command_list_by_animal_id = new ArrayList<>();
+    public List<Integer> getByAnimalId(int animal_id){
+        List<Integer> command_list_by_animal_id = new ArrayList<>();
         for (E e : ac_list){
             if (e.getAnimalId() == animal_id){
-                command_list_by_animal_id.add(e);
+                command_list_by_animal_id.add(e.getCommandId());
             }
         }
         return command_list_by_animal_id;
