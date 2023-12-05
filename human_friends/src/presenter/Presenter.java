@@ -56,6 +56,11 @@ public class Presenter {
         view.printAnswer(info);
     }
 
+    public void trainAnimal(int animalId, int commandId) {
+        String info = service.trainAnimal(animalId, commandId);
+        view.printAnswer(info);
+    }
+
     public void trainAnimal() {
     }
 
@@ -69,12 +74,20 @@ public class Presenter {
         new ConsoleUI().printAnswer(info);
     }
 
-    public boolean checkIsGroup(int groupId) {
-        return service.checkIsGroup(groupId);
+    public boolean checkIsGroup(int group_id) {
+        return service.checkIsGroup(group_id);
     }
 
-    public boolean checkIsType(int typeId) {
-        return service.checkIsType(typeId);
+    public boolean checkIsType(int type_id) {
+        return service.checkIsType(type_id);
+    }
+
+    public boolean checkIsAnimal(int animal_id) {
+        return service.checkIsAnimal(animal_id);
+    }
+
+    public boolean checkIsCommand(int command_id) {
+        return service.checkIsCommand(command_id);
     }
 
 

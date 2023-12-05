@@ -1,12 +1,9 @@
 package view;
 
-import model.commands.AnimalCommand;
 import presenter.Presenter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUI implements View{
@@ -121,9 +118,27 @@ public class ConsoleUI implements View{
     public void addCommand() {
         presenter.printCommandList();
         System.out.println("\nВвод новой команды, выполняемой животными.");
-        String name = checkAlphabeticInput("наименование команды");
+        String name = checkAlphabeticInput("Введите наименование команды");
         presenter.addCommand(name);
         presenter.printCommandList();
+    }
+
+    public void trainAnimal() {
+        String s_stop_train = "Операция обучения животного прервана.\n";
+        String s_error_value = "\nВведены неверные данные о ";
+        System.out.println("\nОбучить животное новой команде.");
+        int animal_id = getAnimalID();
+        if (animal_id < 0) {
+            System.out.println(s_error_value + "животном. " + s_stop_train);
+        } else {
+            int command_id = getCommandID();
+            if (command_id < 0) {
+                System.out.println(s_error_value + "команде. " + s_stop_train);
+            } else {
+                presenter.trainAnimal(animal_id, command_id);
+                presenter.printAnimalList();
+            }
+        }
     }
 
     private int getGroupID(){
@@ -167,6 +182,48 @@ public class ConsoleUI implements View{
         }
         return type_id;
     }
+
+    private int getAnimalID(){
+        boolean flag = true;
+        int animal_id = -1;
+        while (flag) {
+            presenter.printAnimalList();
+            System.out.print("\nВведите ID животного: ");
+            String string = scanner.nextLine();
+            if (checkIntegerInput(string)) {
+                animal_id = Integer.parseInt(string);
+                if (checkIsAnimal(animal_id)) {
+                    flag = false;
+                } else {
+                    System.out.print("\nЖивотного с таким ID в списке нет.\n");
+                    animal_id = -1;
+                    flag = false;
+                }
+            }
+        }
+        return animal_id;
+    }
+
+    private int getCommandID(){
+        boolean flag = true;
+        int command_id = -1;
+        while (flag) {
+            presenter.printCommandList();
+            System.out.print("\nВведите ID команды: ");
+            String string = scanner.nextLine();
+            if (checkIntegerInput(string)) {
+                command_id = Integer.parseInt(string);
+                if (checkIsCommand(command_id)) {
+                    flag = false;
+                } else {
+                    System.out.print("\nЖивотного с таким ID в списке нет.\n");
+                    command_id = -1;
+                    flag = false;
+                }
+            }
+        }
+        return command_id;
+    }
     private boolean checkIsGroup(int group_id){
         return presenter.checkIsGroup(group_id);
     }
@@ -175,8 +232,12 @@ public class ConsoleUI implements View{
         return presenter.checkIsType(type_id);
     }
 
-    public void trainAnimal() {
-        presenter.trainAnimal();
+    private boolean checkIsAnimal(int animal_id){
+        return presenter.checkIsAnimal(animal_id);
+    }
+
+    private boolean checkIsCommand(int command_id){
+        return presenter.checkIsCommand(command_id);
     }
 
     public void counter() {
