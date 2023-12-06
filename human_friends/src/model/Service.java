@@ -2,6 +2,7 @@ package model;
 
 import model.animalCommand.ACList;
 import model.animalCommand.PetCommand;
+import model.animalDB.AnimalDB;
 import model.animals.Animal;
 import model.animals.AnimalList;
 import model.base.Base;
@@ -16,20 +17,20 @@ import model.types.TypeList;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Service {
-    private final GroupList group_list;
-    private final TypeList type_list;
-    private final AnimalList animal_list;
-    private final CommandList command_list;
-    private final ACList<PetCommand> ac_list;
-    private final Counter pets_count;
+public class Service extends AnimalDB {
+//    private final GroupList group_list;
+//    private final TypeList type_list;
+//    private final AnimalList animal_list;
+//    private final CommandList command_list;
+//    private final ACList<PetCommand> ac_list;
+//    private final Counter pets_count;
     public Service (){
-        group_list = new GroupList();
-        type_list = new TypeList();
-        animal_list = new AnimalList();
-        command_list = new CommandList();
-        ac_list = new ACList<>();
-        pets_count = new Counter();
+//        group_list = new GroupList();
+//        type_list = new TypeList();
+//        animal_list = new AnimalList();
+//        command_list = new CommandList();
+//        ac_list = new ACList<>();
+//        pets_count = new Counter();
     }
 
     public String addGroup(String name) {

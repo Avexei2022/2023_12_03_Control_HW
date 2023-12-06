@@ -85,6 +85,7 @@ public class ConsoleUI implements View{
             presenter.getAnimalNameByID(animal_id);
             System.out.println("Обучен командам: ");
             presenter.getInfoPetCommandByAnimalID(animal_id);
+            System.out.println(" ");
         }
     }
 
