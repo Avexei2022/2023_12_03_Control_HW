@@ -127,6 +127,10 @@ public class Service {
         return command_list.checkIsId(command_id);
     }
 
+    public boolean checkCommandIsEmpty() {
+        return command_list.checkIsEmpty();
+    }
+
     public String getInfoGroupList() {
         if (group_list.checkIsEmpty()){
             StringBuilder sb = new StringBuilder();
@@ -204,4 +208,6 @@ public class Service {
     public String getAnimalNameByID(int animal_id) {
         return animal_list.getNameById(animal_id);
     }
+
+
 }
