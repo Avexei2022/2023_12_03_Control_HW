@@ -92,6 +92,9 @@ public class Presenter {
         return service.checkIsCommand(command_id);
     }
 
+    public boolean checkCommandIsEmpty() {
+        return service.checkCommandIsEmpty();
+    }
 
     public void loadDB() {
     }
@@ -101,4 +104,6 @@ public class Presenter {
         String info = service.getAnimalNameByID(animalId);
         view.printAnswer(info);
     }
+
+
 }

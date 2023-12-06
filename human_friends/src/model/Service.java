@@ -100,7 +100,7 @@ public class Service {
         if (id1_bd2 == 1) {
             animal_list.sortListById();
         } else {
-            animal_list.sortListById();
+            animal_list.sortListByBirthday();
         }
         return getInfoAnimalList();
     }
@@ -125,6 +125,10 @@ public class Service {
 
     public boolean checkIsCommand(int command_id) {
         return command_list.checkIsId(command_id);
+    }
+
+    public boolean checkCommandIsEmpty() {
+        return command_list.checkIsEmpty();
     }
 
     public String getInfoGroupList() {
@@ -204,4 +208,6 @@ public class Service {
     public String getAnimalNameByID(int animal_id) {
         return animal_list.getNameById(animal_id);
     }
+
+
 }

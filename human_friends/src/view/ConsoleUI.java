@@ -81,6 +81,9 @@ public class ConsoleUI implements View{
         if (animal_id < 0) {
             System.out.println(" Введены неверные данные о питомце. Операция прервана.\n");
         } else {
+            System.out.println("Питомец: ");
+            presenter.getAnimalNameByID(animal_id);
+            System.out.println("Обучен командам: ");
             presenter.getInfoPetCommandByAnimalID(animal_id);
         }
     }
@@ -130,19 +133,23 @@ public class ConsoleUI implements View{
     }
 
     public void trainAnimal() {
-        String s_stop_train = "Операция обучения питомца прервана.\n";
-        String s_error_value = "\nВведены неверные данные о ";
-        System.out.println("\nОбучить питомца новой команде.");
-        int animal_id = getAnimalID();
-        if (animal_id < 0) {
-            System.out.println(s_error_value + "питомце. " + s_stop_train);
-        } else {
-            int command_id = getCommandID();
-            if (command_id < 0) {
-                System.out.println(s_error_value + "команде. " + s_stop_train);
+        if (checkCommandIsEmpty()){
+            String s_stop_train = "Операция обучения питомца прервана.\n";
+            String s_error_value = "\nВведены неверные данные о ";
+            System.out.println("\nОбучить питомца новой команде.");
+            int animal_id = getAnimalID();
+            if (animal_id < 0) {
+                System.out.println(s_error_value + "питомце. " + s_stop_train);
             } else {
-                presenter.trainAnimal(animal_id, command_id);
+                int command_id = getCommandID();
+                if (command_id < 0) {
+                    System.out.println(s_error_value + "команде. " + s_stop_train);
+                } else {
+                    presenter.trainAnimal(animal_id, command_id);
+                }
             }
+        } else {
+            System.out.println("Список команд пуст, вначале заполните его, выбрав соответствующий пункт меню");
         }
     }
 
@@ -243,6 +250,10 @@ public class ConsoleUI implements View{
 
     private boolean checkIsCommand(int command_id){
         return presenter.checkIsCommand(command_id);
+    }
+
+    private boolean checkCommandIsEmpty(){
+        return presenter.checkCommandIsEmpty();
     }
 
     public void counter() {
