@@ -1,23 +1,19 @@
 package presenter;
 
 import model.Service;
-import view.ConsoleUI;
 import view.View;
 
 import java.time.LocalDate;
 
 public class Presenter {
-    private View view;
-    private Service service;
+    private final View view;
+    private final Service service;
 
     public Presenter(View view) {
         this.view = view;
         this.service = new Service();
     }
 
-    public Presenter() {
-
-    }
     public void printAnimalList(int id1_bd2) {
         String info = service.printAnimalList(id1_bd2);
         view.printAnswer(info);
@@ -66,16 +62,6 @@ public class Presenter {
         view.printAnswer(info);
     }
 
-    public void counter() {
-    }
-    public String printDialog(String info){
-        return new ConsoleUI().printDialog(info);
-    }
-
-    public void print_info(String info) {
-        new ConsoleUI().printAnswer(info);
-    }
-
     public boolean checkIsGroup(int group_id) {
         return service.checkIsGroup(group_id);
     }
@@ -105,5 +91,9 @@ public class Presenter {
         view.printAnswer(info);
     }
 
+    public void counter() {
+        String info = service.counter();
+        view.printAnswer(info);
+    }
 
 }

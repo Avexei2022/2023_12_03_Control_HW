@@ -48,10 +48,12 @@ public class ACList<E extends PetCommand> implements Serializable, Iterable<E> {
         return !ac_list.isEmpty();
     }
 
+    // TODO: 06.12.2023  
     public void sortListByAnimalId(){
         ac_list.sort(new ACComparatorByAnimalID<>());
     }
 
+    // TODO: 06.12.2023  
     public void sortListByCommandId(){
         ac_list.sort(new ACComparatorByCommandID<>());
     }

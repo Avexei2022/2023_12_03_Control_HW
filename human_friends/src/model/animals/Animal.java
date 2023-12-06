@@ -33,9 +33,6 @@ public class Animal extends AnimalType implements AnimalItemsList{
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday){
-        this.birthday = birthday;
-    }
 
     public void setId(int id) {
         this.id = id;

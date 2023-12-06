@@ -1,7 +1,5 @@
 package model.animalCommand;
 
-import model.base.BaseItemsList;
-
 import java.util.Comparator;
 
 public class ACComparatorByAnimalID<T extends ACItemsList> implements Comparator<T> {

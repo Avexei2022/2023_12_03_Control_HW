@@ -1,6 +1,5 @@
 package model;
 
-import model.animalCommand.ACItemsList;
 import model.animalCommand.ACList;
 import model.animalCommand.PetCommand;
 import model.animals.Animal;
@@ -10,11 +9,11 @@ import model.commands.BaseCommand;
 import model.commands.CommandList;
 import model.groups.AnimalGroup;
 import model.groups.GroupList;
+import model.infrastructure.Counter;
 import model.types.AnimalType;
 import model.types.TypeList;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Service {
@@ -23,12 +22,14 @@ public class Service {
     private final AnimalList animal_list;
     private final CommandList command_list;
     private final ACList<PetCommand> ac_list;
+    private final Counter pets_count;
     public Service (){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();
         command_list = new CommandList();
         ac_list = new ACList<>();
+        pets_count = new Counter();
     }
 
     public String addGroup(String name) {
@@ -57,6 +58,7 @@ public class Service {
         Animal animal = new Animal(groupId, name, birthday);
         String info;
         if (animal_list.addBaseToList(animal)){
+            pets_count.increment();
             info = "\n Вид: " + name + " добавлен в список.\n";
         } else {
             info =  "\n Вид:  " + name + " уже существует в списке.\n";
@@ -209,5 +211,11 @@ public class Service {
         return animal_list.getNameById(animal_id);
     }
 
-
+    public String counter() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nУ вас ");
+        sb.append(pets_count.getPetsCount());
+        sb.append(" питомцев.\n");
+        return sb.toString();
+    }
 }

@@ -22,17 +22,6 @@ public abstract class BaseList <E extends Base> implements Serializable, Iterabl
         return false;
     }
 
-    // TODO: 04.12.2023  
-//    public boolean removeBase(E e){
-//        if (e == null){
-//            return false;
-//        }
-//        if (baseListE.contains(e)){
-//            baseListE.remove(e);
-//            return true;
-//        }
-//        return false;
-//    }
     public E getById(int id){
         for (E base : base_list){
             if (base.getId() == id){
@@ -60,14 +49,6 @@ public abstract class BaseList <E extends Base> implements Serializable, Iterabl
         return false;
     }
 
-    // TODO: 04.12.2023  
-//    public int getSize() {
-//        int size = 0;
-//        if (!baseListE.isEmpty()){
-//            size = baseListE.size();
-//        }
-//        return size;
-//    }
 
     public boolean checkIsEmpty(){
         return !base_list.isEmpty();

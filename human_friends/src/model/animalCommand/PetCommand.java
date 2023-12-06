@@ -1,7 +1,5 @@
 package model.animalCommand;
 
-import model.base.Base;
-
 import java.util.Objects;
 
 public class PetCommand implements ACItemsList{

@@ -5,7 +5,7 @@ import view.ConsoleUI;
 public class AnimalCounter extends Command{
     public AnimalCounter(ConsoleUI consoleUI) {
         super(consoleUI);
-        description = "Счетчик животных";
+        description = "Счетчик питомцев";
     }
     public void execute(){
         consoleUI.counter();
