@@ -23,9 +23,6 @@ public abstract class Base implements BaseItemsList, Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
     public  boolean equals(Object obj){
         if (this == obj){
             return  true;

@@ -1,10 +1,7 @@
 package model.animals;
 
-import model.animalCommand.ACComparatorByAnimalID;
-import model.base.Base;
-import model.base.BaseComparatorByID;
-import model.base.BaseList;
 
+import model.base.BaseList;
 import java.util.ArrayList;
 import java.util.List;
 

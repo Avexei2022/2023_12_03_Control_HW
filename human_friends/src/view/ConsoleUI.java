@@ -256,10 +256,6 @@ public class ConsoleUI implements View{
         return presenter.checkCommandIsEmpty();
     }
 
-    public void counter() {
-        presenter.counter();
-    }
-
     private boolean checkIntegerInput(String string){
         if (string.matches("\\d+")){
             return true;
@@ -300,6 +296,9 @@ public class ConsoleUI implements View{
         return local_date;
     }
 
+    public void counter() {
+        presenter.counter();
+    }
     public void LoadDB() {
         presenter.loadDB();
     }

@@ -6,5 +6,5 @@ public interface BaseItemsList extends Serializable {
     int getId();
     String getName();
     void setId(int id);
-    void setName(String name);
+
 }
