@@ -100,7 +100,7 @@ public class Service {
         if (id1_bd2 == 1) {
             animal_list.sortListById();
         } else {
-            animal_list.sortListById();
+            animal_list.sortListByBirthday();
         }
         return getInfoAnimalList();
     }
