@@ -6,14 +6,11 @@ import model.groups.AnimalGroup;
 
 public class AnimalType extends AnimalGroup implements TypeItemsList{
     private int id;
-    private final int group_id;
-//    private String name;
+    protected final int group_id;
      public AnimalType(int group_id, String name){
         super (name);
          id = -1;
         this.group_id = group_id;
-//        this.name = name;
-
     }
 
     @Override

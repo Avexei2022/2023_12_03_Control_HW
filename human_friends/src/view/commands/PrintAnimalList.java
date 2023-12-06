@@ -9,7 +9,7 @@ public class PrintAnimalList extends Command {
         description = "Вывести список животных по дате рождения";
     }
     public void execute(){
-        consoleUI.printAnimalList();
+        consoleUI.printAnimalList(2);
     }
 
 }

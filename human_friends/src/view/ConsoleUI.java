@@ -11,7 +11,7 @@ public class ConsoleUI implements View{
     private final Scanner scanner;
     private final Presenter presenter;
     private boolean work;
-    private Menu menu;
+    private final Menu menu;
     String user_string;
 
     public ConsoleUI(){
@@ -71,12 +71,18 @@ public class ConsoleUI implements View{
         work = false;
     }
 
-    public void printAnimalList() {
-        presenter.printAnimalList();
+    public void printAnimalList(int id1_bd2) {
+        presenter.printAnimalList(id1_bd2);
     }
 
     public void printAnimalCommands() {
-        presenter.printCommandList();
+        System.out.println("\nПолучить информацию о командах, выполняемых питомцем.");
+        int animal_id = getAnimalID();
+        if (animal_id < 0) {
+            System.out.println(" Введены неверные данные о питомце. Операция прервана.\n");
+        } else {
+            presenter.getInfoPetCommandByAnimalID(animal_id);
+        }
     }
 
     public void addGroup() {
@@ -101,45 +107,41 @@ public class ConsoleUI implements View{
     }
 
     public void addAnimal() {
-        presenter.printAnimalList();
-        System.out.println("\nВвод нового животного.");
+        presenter.printAnimalList(1);
+        System.out.println("\nВвод информации о новом питомце.");
         int type_id = getTypeID();
         if (type_id < 0) {
-            System.out.println("\nОперация ввода нового животного прервана.\n");
+            System.out.println("\nОперация ввода нового питомца прервана.\n");
         } else {
             String name = checkAlphabeticInput("Введите имя ");
             LocalDate birthday = checkFormatLocalDate("Введите дату рождения (dd.mm.yyyy): ");
             presenter.addAnimal(type_id, name, birthday);
-            presenter.printAnimalList();
+            presenter.printAnimalList(1);
         }
     }
 
 
     public void addCommand() {
         presenter.printCommandList();
-        System.out.println("\nВвод новой команды, выполняемой животными.");
+        System.out.println("\nВвод новой команды, выполняемой питомцами.");
         String name = checkAlphabeticInput("Введите наименование команды");
         presenter.addCommand(name);
         presenter.printCommandList();
     }
 
     public void trainAnimal() {
-        String s_stop_train = "Операция обучения животного прервана.\n";
+        String s_stop_train = "Операция обучения питомца прервана.\n";
         String s_error_value = "\nВведены неверные данные о ";
-        System.out.println("\nОбучить животное новой команде.");
+        System.out.println("\nОбучить питомца новой команде.");
         int animal_id = getAnimalID();
         if (animal_id < 0) {
-            System.out.println(s_error_value + "животном. " + s_stop_train);
+            System.out.println(s_error_value + "питомце. " + s_stop_train);
         } else {
             int command_id = getCommandID();
             if (command_id < 0) {
                 System.out.println(s_error_value + "команде. " + s_stop_train);
             } else {
-                System.out.println("\nПитомец: ");
-                presenter.getAnimalNameByID(animal_id);
-                System.out.println(" обучен командам: ");
                 presenter.trainAnimal(animal_id, command_id);
-                System.out.println(".\n");
             }
         }
     }
@@ -190,15 +192,15 @@ public class ConsoleUI implements View{
         boolean flag = true;
         int animal_id = -1;
         while (flag) {
-            presenter.printAnimalList();
-            System.out.print("\nВведите ID животного: ");
+            presenter.printAnimalList(1);
+            System.out.print("\nВведите ID питомца: ");
             String string = scanner.nextLine();
             if (checkIntegerInput(string)) {
                 animal_id = Integer.parseInt(string);
                 if (checkIsAnimal(animal_id)) {
                     flag = false;
                 } else {
-                    System.out.print("\nЖивотного с таким ID в списке нет.\n");
+                    System.out.print("\nПитомца с таким ID в списке нет.\n");
                     animal_id = -1;
                     flag = false;
                 }
@@ -219,7 +221,7 @@ public class ConsoleUI implements View{
                 if (checkIsCommand(command_id)) {
                     flag = false;
                 } else {
-                    System.out.print("\nЖивотного с таким ID в списке нет.\n");
+                    System.out.print("\nКоманды с таким ID в списке нет.\n");
                     command_id = -1;
                     flag = false;
                 }

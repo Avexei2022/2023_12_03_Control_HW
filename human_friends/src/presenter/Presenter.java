@@ -18,8 +18,8 @@ public class Presenter {
     public Presenter() {
 
     }
-    public void printAnimalList() {
-        String info = service.printAnimalList();
+    public void printAnimalList(int id1_bd2) {
+        String info = service.printAnimalList(id1_bd2);
         view.printAnswer(info);
     }
 

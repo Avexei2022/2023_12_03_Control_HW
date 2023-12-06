@@ -96,8 +96,12 @@ public class Service {
         type_list.sortListById();
         return getInfoTypeList();
     }
-    public String printAnimalList() {
-        type_list.sortListById();
+    public String printAnimalList(int id1_bd2) {
+        if (id1_bd2 == 1) {
+            animal_list.sortListById();
+        } else {
+            animal_list.sortListById();
+        }
         return getInfoAnimalList();
     }
 

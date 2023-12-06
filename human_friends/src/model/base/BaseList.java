@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class BaseList <E extends Base> implements Serializable, Iterable<E>{
-    private int id;
-    private final List<E> base_list;
+    protected int id;
+    protected List<E> base_list;
     public BaseList(List<E> base_list) {
         this.base_list = base_list;
     }

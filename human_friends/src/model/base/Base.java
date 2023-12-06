@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Base implements BaseItemsList, Serializable {
-    private int id;
-    private String name;
+    protected int id;
+    protected String name;
     public Base(String name){
         id = -1;
         this.name = name;
