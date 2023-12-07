@@ -95,7 +95,7 @@ public class Presenter {
 
     public void saveDB() {
         String info;
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/HumanFriends.mydb"))){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("HumanFriends.mydb"))){
             oos.writeObject(humanFriendsDB);
             info = "База данных успешно сохранена в файл ";
         } catch (Exception e){
@@ -106,7 +106,7 @@ public class Presenter {
 
     public void loadDB(){
         String info;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/HumanFriends.mydb"))){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("HumanFriends.mydb"))){
             humanFriendsDB = (HumanFriendsDB) ois.readObject();
             info = "База данных успешно загружена ";
         } catch (Exception e){
