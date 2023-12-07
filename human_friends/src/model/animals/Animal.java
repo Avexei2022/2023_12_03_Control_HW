@@ -1,9 +1,11 @@
 package model.animals;
 
 import model.types.AnimalType;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Animal extends AnimalType implements AnimalItemsList{
+public class Animal extends AnimalType implements AnimalItemsList, Serializable {
     private int id;
     private LocalDate birthday;
 

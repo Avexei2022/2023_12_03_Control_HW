@@ -85,6 +85,7 @@ public class ConsoleUI implements View{
             presenter.getAnimalNameByID(animal_id);
             System.out.println("Обучен командам: ");
             presenter.getInfoPetCommandByAnimalID(animal_id);
+            System.out.println(" ");
         }
     }
 
@@ -299,8 +300,35 @@ public class ConsoleUI implements View{
     public void counter() {
         presenter.counter();
     }
-    public void LoadDB() {
-        presenter.loadDB();
+    public void loadDB() {
+        System.out.print("""
+
+                Загрузка базы данных из файла.
+                Текущая база данных будет удалена.
+                Для подтверждения введите "Yes":\s""");
+        String str = scanner.nextLine();
+        if (str.equalsIgnoreCase("Yes")){
+            presenter.loadDB();
+        } else {
+            System.out.println("Действие отменено.");
+        }
+
     }
+
+    public void saveDB() {
+        System.out.print("""
+
+                Сохранение базы данных в файл.
+                Данные в файле будут заменены.
+                Для подтверждения введите "Yes":\s""");
+        String str = scanner.nextLine();
+        if (str.equalsIgnoreCase("Yes")){
+            System.out.println("Сохраняю базу данных в файл.\n");
+            presenter.saveDB();
+        } else {
+            System.out.println("\nДействие отменено.\n");
+        }
+    }
+
 
 }

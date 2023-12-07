@@ -2,9 +2,10 @@ package model.types;
 
 import model.groups.AnimalGroup;
 
+import java.io.Serializable;
 
 
-public class AnimalType extends AnimalGroup implements TypeItemsList{
+public class AnimalType extends AnimalGroup implements TypeItemsList, Serializable {
     private int id;
     protected final int group_id;
      public AnimalType(int group_id, String name){

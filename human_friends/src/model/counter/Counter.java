@@ -1,6 +1,8 @@
-package model.infrastructure;
+package model.counter;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
     private int pets_count;
 
     public Counter(){
