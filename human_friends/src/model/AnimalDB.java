@@ -2,7 +2,6 @@ package model;
 
 import model.animalCommand.ACList;
 import model.animalCommand.PetCommand;
-import model.animalDB.AnimalDB;
 import model.animals.Animal;
 import model.animals.AnimalList;
 import model.base.Base;
@@ -10,27 +9,31 @@ import model.commands.BaseCommand;
 import model.commands.CommandList;
 import model.groups.AnimalGroup;
 import model.groups.GroupList;
-import model.infrastructure.Counter;
+import model.counter.Counter;
 import model.types.AnimalType;
 import model.types.TypeList;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Service extends AnimalDB {
-//    private final GroupList group_list;
-//    private final TypeList type_list;
-//    private final AnimalList animal_list;
-//    private final CommandList command_list;
-//    private final ACList<PetCommand> ac_list;
-//    private final Counter pets_count;
-    public Service (){
-//        group_list = new GroupList();
-//        type_list = new TypeList();
-//        animal_list = new AnimalList();
-//        command_list = new CommandList();
-//        ac_list = new ACList<>();
-//        pets_count = new Counter();
+public class AnimalDB implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final GroupList group_list;
+    private final TypeList type_list;
+    private final AnimalList animal_list;
+    private final CommandList command_list;
+    private final ACList<PetCommand> ac_list;
+    private final Counter pets_count;
+    public AnimalDB(){
+        group_list = new GroupList();
+        type_list = new TypeList();
+        animal_list = new AnimalList();
+        command_list = new CommandList();
+        ac_list = new ACList<>();
+        pets_count = new Counter();
     }
 
     public String addGroup(String name) {
@@ -168,11 +171,11 @@ public class Service extends AnimalDB {
         if (animal_list.checkIsEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок животных.\n");
-            for (Base animal : animal_list) {
+            for (Animal animal : animal_list) {
                 sb.append(group_list.getById(((AnimalType) type_list
-                                .getById(((Animal) animal).getParentId())).getParentId())
+                                .getById(animal.getParentId())).getParentId())
                         .toString());
-                sb.append(type_list.getById(((Animal) animal).getParentId())
+                sb.append(type_list.getById(animal.getParentId())
                         .toString());
                 sb.append(animal);
                 sb.append(" | Обучен командам: ");
