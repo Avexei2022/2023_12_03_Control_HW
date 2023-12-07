@@ -23,7 +23,7 @@ public class Menu {
     }
     public String printMenu() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Меню:\n");
+        stringBuilder.append("\nМеню:\n");
         for (int i = 0; i < commandList.size(); i++) {
             stringBuilder.append(i + 1);
             stringBuilder.append(". ");

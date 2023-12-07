@@ -7,6 +7,8 @@ import model.animals.AnimalList;
 import model.base.Base;
 import model.commands.BaseCommand;
 import model.commands.CommandList;
+import model.exception_app.MyAutoCloseableException;
+import model.exception_app.ThisAppException;
 import model.groups.AnimalGroup;
 import model.groups.GroupList;
 import model.counter.Counter;
@@ -25,14 +27,14 @@ public class HumanFriendsDB implements Serializable {
     private final AnimalList animal_list;
     private final CommandList command_list;
     private final ACList<PetCommand> ac_list;
-    private final Counter pets_count;
+//    private final Counter pets_count;
     public HumanFriendsDB(){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();
         command_list = new CommandList();
         ac_list = new ACList<>();
-        pets_count = new Counter();
+//        pets_count = new Counter();
     }
 
     public String addGroup(String name) {
@@ -57,14 +59,18 @@ public class HumanFriendsDB implements Serializable {
         return info;
     }
 
-    public String addAnimal(int groupId, String name, LocalDate birthday) {
-        Animal animal = new Animal(groupId, name, birthday);
+    public String addAnimal(int groupId, String name, LocalDate birthday) throws ThisAppException{
         String info;
-        if (animal_list.addBaseToList(animal)){
-            pets_count.increment();
-            info = "\n Вид: " + name + " добавлен в список.\n";
-        } else {
-            info =  "\n Вид:  " + name + " уже существует в списке.\n";
+        try (Counter pets_count = new Counter()) {
+            Animal animal = new Animal(groupId, name, birthday);
+            if (animal_list.addBaseToList(animal)) {
+                pets_count.add();
+                info = "\n Вид: " + name + " добавлен в реестр.\n";
+            } else {
+                info = "\n Вид:  " + name + " уже существует в реестре.\n";
+            }
+        } catch (Exception e){
+            throw new MyAutoCloseableException("Питомец в реестр не добавлен", e.fillInStackTrace().toString());
         }
         return info;
     }
@@ -133,11 +139,19 @@ public class HumanFriendsDB implements Serializable {
     }
 
     public boolean checkCommandIsEmpty() {
-        return command_list.checkIsEmpty();
+        return command_list.checkIsNotEmpty();
+    }
+
+    public boolean checkTypeListIsNotEmpty() {
+        return type_list.checkIsNotEmpty();
+    }
+
+    public boolean checkAnimalListIsNotEmpty() {
+        return animal_list.checkIsNotEmpty();
     }
 
     public String getInfoGroupList() {
-        if (group_list.checkIsEmpty()){
+        if (group_list.checkIsNotEmpty()){
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок групп животных.\n");
             for (Base e: group_list) {
@@ -151,7 +165,7 @@ public class HumanFriendsDB implements Serializable {
     }
 
     public String getInfoTypeList() {
-        if (type_list.checkIsEmpty()) {
+        if (type_list.checkIsNotEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок видов животных.\n");
             for (Base type : type_list) {
@@ -167,7 +181,7 @@ public class HumanFriendsDB implements Serializable {
     }
 
     public String getInfoAnimalList() {
-        if (animal_list.checkIsEmpty()) {
+        if (animal_list.checkIsNotEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок животных.\n");
             for (Animal animal : animal_list) {
@@ -187,7 +201,7 @@ public class HumanFriendsDB implements Serializable {
         }
     }
     public String getInfoCommandList() {
-        if (command_list.checkIsEmpty()){
+        if (command_list.checkIsNotEmpty()){
             StringBuilder sb = new StringBuilder();
             sb.append("\nСписок команд животных.\n");
             for (Base e: command_list) {
@@ -214,11 +228,16 @@ public class HumanFriendsDB implements Serializable {
         return animal_list.getNameById(animal_id);
     }
 
-    public String counter() {
+    public String counter() throws ThisAppException {
         StringBuilder sb = new StringBuilder();
-        sb.append("\nУ вас ");
-        sb.append(pets_count.getPetsCount());
-        sb.append(" питомцев.\n");
+        try (Counter pets_count = new Counter()) {
+            sb.append("\nУ вас ");
+            sb.append(pets_count.getPetsCount());
+            sb.append(" питомцев.\n");
+        } catch (Exception e){
+            throw new MyAutoCloseableException("Проблема со счетчиком питомцев", e.fillInStackTrace().toString());
+        }
         return sb.toString();
     }
+
 }

@@ -1,9 +1,7 @@
 package presenter;
 
 import model.HumanFriendsDB;
-import model.exception_app.MyClassNotFoundException;
-import model.exception_app.MyFileNotFoundException;
-import model.exception_app.MyIOException;
+import model.exception_app.*;
 import view.View;
 
 import java.io.*;
@@ -48,8 +46,12 @@ public class Presenter {
     }
 
     public void addAnimal(int groupId, String name, LocalDate birthday) {
-        String info = humanFriendsDB.addAnimal(groupId, name, birthday);
-        view.printAnswer(info);
+        try {
+            String info = humanFriendsDB.addAnimal(groupId, name, birthday);
+            view.printAnswer(info);
+        } catch (ThisAppException e){
+            view.printAnswer(e.getMessage());
+        }
     }
     public void addCommand(String name) {
         String info = humanFriendsDB.addCommand(name);
@@ -86,17 +88,29 @@ public class Presenter {
         return humanFriendsDB.checkCommandIsEmpty();
     }
 
+    public boolean checkTypeListIsNotEmpty() {
+        return humanFriendsDB.checkTypeListIsNotEmpty();
+    }
+
+    public boolean checkAnimalListIsNotEmpty() {
+        return humanFriendsDB.checkAnimalListIsNotEmpty();
+    }
+
     public void getAnimalNameByID(int animalId) {
         String info = humanFriendsDB.getAnimalNameByID(animalId);
         view.printAnswer(info);
     }
 
     public void counter() {
-        String info = humanFriendsDB.counter();
-        view.printAnswer(info);
+        try {
+            String info = humanFriendsDB.counter();
+            view.printAnswer(info);
+        } catch (ThisAppException e){
+            view.printAnswer(e.getMessage());
+        }
     }
 
-    public void saveDB(String file_name) {
+    public void saveDB(String file_name) throws ThisAppException{
         String info;
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file_name))){
             oos.writeObject(humanFriendsDB);
@@ -105,22 +119,29 @@ public class Presenter {
             throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
         } catch (IOException e){
             throw new MyIOException(file_name, e.fillInStackTrace().toString());
+        } catch (Exception e) {
+            throw new MyGeneralException(e.fillInStackTrace().toString());
         }
         view.printAnswer(info);
     }
 
-    public void loadDB(String file_name){
+    public void loadDB(String file_name) throws ThisAppException{
         String info;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file_name))){
             humanFriendsDB = (HumanFriendsDB) ois.readObject();
             info = "База данных успешно загружена ";
         } catch (FileNotFoundException e){
             throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
-        } catch (IOException e){
-            throw new MyIOException(file_name, e.fillInStackTrace().toString());
         } catch (ClassNotFoundException e) {
             throw new MyClassNotFoundException(file_name, e.fillInStackTrace().toString());
+        } catch (InvalidClassException e) {
+            throw new MyInvalidClassException("Загружаемая БД содержит неподдерживаемый класс:", e.fillInStackTrace().toString());
+        } catch (IOException e) {
+            throw new MyIOException(file_name, e.fillInStackTrace().toString());
+        } catch (Exception e) {
+            throw new MyGeneralException(e.fillInStackTrace().toString());
         }
         view.printAnswer(info);
     }
+
 }
