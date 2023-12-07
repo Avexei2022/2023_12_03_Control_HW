@@ -102,7 +102,6 @@ public class Presenter {
             oos.writeObject(humanFriendsDB);
             info = "База данных успешно сохранена в файл " + file_name;
         } catch (FileNotFoundException e){
-            info = "Что-то пошло не так.";
             throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
         } catch (IOException e){
             throw new MyIOException(file_name, e.fillInStackTrace().toString());
@@ -116,7 +115,6 @@ public class Presenter {
             humanFriendsDB = (HumanFriendsDB) ois.readObject();
             info = "База данных успешно загружена ";
         } catch (FileNotFoundException e){
-            info = "Что-то пошло не так.";
             throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
         } catch (IOException e){
             throw new MyIOException(file_name, e.fillInStackTrace().toString());
