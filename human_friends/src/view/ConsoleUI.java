@@ -1,5 +1,6 @@
 package view;
 
+import model.exception_app.ThisAppException;
 import presenter.Presenter;
 
 import java.time.LocalDate;
@@ -28,11 +29,6 @@ public class ConsoleUI implements View{
         System.out.println(text);
     }
 
-    @Override
-    public String printDialog(String text) {
-        System.out.print(text);
-        return scanner.nextLine().trim();
-    }
     public void run() {
         System.out.println("\nHUMAN FRIENDS. Реестр животных\n");
         while (work){
@@ -52,7 +48,6 @@ public class ConsoleUI implements View{
             }
         }
     }
-
 
     private boolean checkCommand(int numCommand){
         int size = menu.getSize();
@@ -77,16 +72,20 @@ public class ConsoleUI implements View{
     }
 
     public void printAnimalCommands() {
-        System.out.println("\nПолучить информацию о командах, выполняемых питомцем.");
-        int animal_id = getAnimalID();
-        if (animal_id < 0) {
-            System.out.println(" Введены неверные данные о питомце. Операция прервана.\n");
+        if (presenter.checkAnimalListIsNotEmpty()) {
+            System.out.println("\nПолучить информацию о командах, выполняемых питомцем.");
+            int animal_id = getAnimalID();
+            if (animal_id < 0) {
+                System.out.println(" Введены неверные данные о питомце. Операция прервана.\n");
+            } else {
+                System.out.println("Питомец: ");
+                presenter.getAnimalNameByID(animal_id);
+                System.out.println("Обучен командам: ");
+                presenter.getInfoPetCommandByAnimalID(animal_id);
+                System.out.println(" ");
+            }
         } else {
-            System.out.println("Питомец: ");
-            presenter.getAnimalNameByID(animal_id);
-            System.out.println("Обучен командам: ");
-            presenter.getInfoPetCommandByAnimalID(animal_id);
-            System.out.println(" ");
+            System.out.println("Реестр не содержит питомцев, заведите их.");
         }
     }
 
@@ -113,18 +112,22 @@ public class ConsoleUI implements View{
 
     public void addAnimal() {
         presenter.printAnimalList(1);
-        System.out.println("\nВвод информации о новом питомце.");
-        int type_id = getTypeID();
-        if (type_id < 0) {
-            System.out.println("\nОперация ввода нового питомца прервана.\n");
+        if (presenter.checkTypeListIsNotEmpty()) {
+            ;
+            System.out.println("\nВвод информации о новом питомце.");
+            int type_id = getTypeID();
+            if (type_id < 0) {
+                System.out.println("\nОперация ввода нового питомца прервана.\n");
+            } else {
+                String name = checkAlphabeticInput("Введите имя ");
+                LocalDate birthday = checkFormatLocalDate("Введите дату рождения (dd.mm.yyyy): ");
+                presenter.addAnimal(type_id, name, birthday);
+                presenter.printAnimalList(1);
+            }
         } else {
-            String name = checkAlphabeticInput("Введите имя ");
-            LocalDate birthday = checkFormatLocalDate("Введите дату рождения (dd.mm.yyyy): ");
-            presenter.addAnimal(type_id, name, birthday);
-            presenter.printAnimalList(1);
+            System.out.println("Список видов животных пуст. Заполните его.");
         }
     }
-
 
     public void addCommand() {
         presenter.printCommandList();
@@ -302,34 +305,41 @@ public class ConsoleUI implements View{
         presenter.counter();
     }
     public void loadDB() {
-        System.out.print("""
+        try {
+            System.out.print("""
 
-                Загрузка базы данных из файла: """ + file_name + """
-                Текущая база данных будет удалена.
-                Для подтверждения введите "Yes":\s""");
-        String str = scanner.nextLine();
-        if (str.equalsIgnoreCase("Yes")){
-            presenter.loadDB(file_name);
-        } else {
-            System.out.println("Действие отменено.");
+                    Загрузка базы данных из файла: """ + file_name + """
+                    \nТекущая база данных будет удалена.
+                    Для подтверждения введите "Yes":\s""");
+            String str = scanner.nextLine();
+            if (str.equalsIgnoreCase("Yes")) {
+                presenter.loadDB(file_name);
+            } else {
+                System.out.println("Действие отменено.");
+            }
+        } catch (ThisAppException e) {
+            System.out.println(e.getMessage());
         }
 
     }
 
     public void saveDB() {
-        System.out.print("""
+        try {
+            System.out.print("""
 
-                Сохранение базы данных в файл """ + file_name + """
-                Предыдущие данные будут удалены.
-                Для подтверждения введите "Yes":\s""");
-        String str = scanner.nextLine();
-        if (str.equalsIgnoreCase("Yes")){
-            System.out.println("Сохраняю базу данных в файл.\n");
-            presenter.saveDB(file_name);
-        } else {
-            System.out.println("\nДействие отменено.\n");
+                    Сохранение базы данных в файл """ + file_name + """
+                    \nПредыдущие данные будут удалены.
+                    Для подтверждения введите "Yes":\s""");
+            String str = scanner.nextLine();
+            if (str.equalsIgnoreCase("Yes")) {
+                System.out.println("Сохраняю базу данных в файл.\n");
+                presenter.saveDB(file_name);
+            } else {
+                System.out.println("\nДействие отменено.\n");
+            }
+        } catch (ThisAppException e) {
+            System.out.println(e.getMessage());
         }
     }
-
 
 }

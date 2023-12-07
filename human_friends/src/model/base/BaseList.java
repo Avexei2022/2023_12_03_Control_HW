@@ -49,8 +49,7 @@ public abstract class BaseList <E extends Base> implements Serializable, Iterabl
         return false;
     }
 
-
-    public boolean checkIsEmpty(){
+    public boolean checkIsNotEmpty(){
         return !base_list.isEmpty();
     }
 
