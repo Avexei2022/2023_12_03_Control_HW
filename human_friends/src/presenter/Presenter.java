@@ -1,6 +1,9 @@
 package presenter;
 
 import model.HumanFriendsDB;
+import model.exception_app.MyClassNotFoundException;
+import model.exception_app.MyFileNotFoundException;
+import model.exception_app.MyIOException;
 import view.View;
 
 import java.io.*;
@@ -93,24 +96,32 @@ public class Presenter {
         view.printAnswer(info);
     }
 
-    public void saveDB() {
+    public void saveDB(String file_name) {
         String info;
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("HumanFriends.mydb"))){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file_name))){
             oos.writeObject(humanFriendsDB);
-            info = "База данных успешно сохранена в файл ";
-        } catch (Exception e){
+            info = "База данных успешно сохранена в файл " + file_name;
+        } catch (FileNotFoundException e){
             info = "Что-то пошло не так.";
+            throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
+        } catch (IOException e){
+            throw new MyIOException(file_name, e.fillInStackTrace().toString());
         }
         view.printAnswer(info);
     }
 
-    public void loadDB(){
+    public void loadDB(String file_name){
         String info;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("HumanFriends.mydb"))){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file_name))){
             humanFriendsDB = (HumanFriendsDB) ois.readObject();
             info = "База данных успешно загружена ";
-        } catch (Exception e){
-            info = "Что-то пошло не так. ";
+        } catch (FileNotFoundException e){
+            info = "Что-то пошло не так.";
+            throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());
+        } catch (IOException e){
+            throw new MyIOException(file_name, e.fillInStackTrace().toString());
+        } catch (ClassNotFoundException e) {
+            throw new MyClassNotFoundException(file_name, e.fillInStackTrace().toString());
         }
         view.printAnswer(info);
     }
