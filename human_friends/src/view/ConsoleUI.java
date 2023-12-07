@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class ConsoleUI implements View{
     private static final String INPUT_ERROR = "\nВы ввели неверное значение\n";
+    private static final String file_name = "HumanFriends.mydb";
     private final Scanner scanner;
     private final Presenter presenter;
     private boolean work;
@@ -303,12 +304,12 @@ public class ConsoleUI implements View{
     public void loadDB() {
         System.out.print("""
 
-                Загрузка базы данных из файла.
+                Загрузка базы данных из файла: """ + file_name + """
                 Текущая база данных будет удалена.
                 Для подтверждения введите "Yes":\s""");
         String str = scanner.nextLine();
         if (str.equalsIgnoreCase("Yes")){
-            presenter.loadDB();
+            presenter.loadDB(file_name);
         } else {
             System.out.println("Действие отменено.");
         }
@@ -318,13 +319,13 @@ public class ConsoleUI implements View{
     public void saveDB() {
         System.out.print("""
 
-                Сохранение базы данных в файл.
-                Данные в файле будут заменены.
+                Сохранение базы данных в файл """ + file_name + """
+                Предыдущие данные будут удалены.
                 Для подтверждения введите "Yes":\s""");
         String str = scanner.nextLine();
         if (str.equalsIgnoreCase("Yes")){
             System.out.println("Сохраняю базу данных в файл.\n");
-            presenter.saveDB();
+            presenter.saveDB(file_name);
         } else {
             System.out.println("\nДействие отменено.\n");
         }

@@ -13,8 +13,7 @@ import model.counter.Counter;
 import model.types.AnimalType;
 import model.types.TypeList;
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 
