@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class AnimalDB implements Serializable {
+public class HumanFriendsDB implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private final GroupList group_list;
@@ -27,7 +27,7 @@ public class AnimalDB implements Serializable {
     private final CommandList command_list;
     private final ACList<PetCommand> ac_list;
     private final Counter pets_count;
-    public AnimalDB(){
+    public HumanFriendsDB(){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();

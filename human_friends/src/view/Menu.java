@@ -17,6 +17,7 @@ public class Menu {
         commandList.add(new AddCommand(consoleUI));
         commandList.add(new AddType(consoleUI));
         commandList.add(new AddGroup(consoleUI));
+        commandList.add(new SaveDB(consoleUI));
         commandList.add(new LoadDB(consoleUI));
         commandList.add(new Exit(consoleUI));
     }

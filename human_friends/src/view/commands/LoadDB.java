@@ -8,6 +8,6 @@ public class LoadDB extends Command{
         description = "Загрузить базу данных";
     }
     public void execute(){
-        consoleUI.LoadDB();
+        consoleUI.loadDB();
     }
 }
