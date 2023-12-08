@@ -113,7 +113,6 @@ public class ConsoleUI implements View{
     public void addAnimal() {
         presenter.printAnimalList(1);
         if (presenter.checkTypeListIsNotEmpty()) {
-            ;
             System.out.println("\nВвод информации о новом питомце.");
             int type_id = getTypeID();
             if (type_id < 0) {

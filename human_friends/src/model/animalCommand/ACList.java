@@ -34,29 +34,6 @@ public class ACList<E extends PetCommand> implements Serializable, Iterable<E> {
         }
         return command_list_by_animal_id;
     }
-    public List<E> getByCommandId(int command_id){
-        List<E> animal_list_by_animal_id = new ArrayList<>();
-        for (E e: ac_list){
-            if (e.getAnimalId() == command_id){
-                animal_list_by_animal_id.add(e);
-            }
-        }
-        return animal_list_by_animal_id;
-    }
-
-    public boolean checkIsEmpty(){
-        return !ac_list.isEmpty();
-    }
-
-    // TODO: 06.12.2023  
-    public void sortListByAnimalId(){
-        ac_list.sort(new ACComparatorByAnimalID<>());
-    }
-
-    // TODO: 06.12.2023  
-    public void sortListByCommandId(){
-        ac_list.sort(new ACComparatorByCommandID<>());
-    }
 
     @Override
     public Iterator<E> iterator() {

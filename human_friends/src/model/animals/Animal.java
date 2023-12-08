@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Animal extends AnimalType implements AnimalItemsList, Serializable {
     private int id;
-    private LocalDate birthday;
+    private final LocalDate birthday;
 
     public Animal(int type_id, String name, LocalDate birthday) {
         super(type_id, name);

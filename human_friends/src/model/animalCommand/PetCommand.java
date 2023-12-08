@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class PetCommand implements ACItemsList, Serializable {
 
-    private int animal_id;
-    private int command_id;
+    private final int animal_id;
+    private final int command_id;
 
     public PetCommand (int animal_id, int command_id){
         this.animal_id = animal_id;
