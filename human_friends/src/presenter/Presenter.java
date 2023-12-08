@@ -1,6 +1,7 @@
 package presenter;
 
 import model.HumanFriendsDB;
+import model.counter.Counter;
 import model.exception_app.*;
 import view.View;
 
@@ -103,7 +104,7 @@ public class Presenter {
 
     public void counter() {
         try {
-            String info = humanFriendsDB.counter();
+            String info = humanFriendsDB.getStringPetsCount();
             view.printAnswer(info);
         } catch (ThisAppException e){
             view.printAnswer(e.getMessage());
@@ -129,6 +130,9 @@ public class Presenter {
         String info;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file_name))){
             humanFriendsDB = (HumanFriendsDB) ois.readObject();
+            try (Counter counter = Counter.getCounter()){
+                counter.setPetsCount(humanFriendsDB.getAnimalListSize());
+            }
             info = "База данных успешно загружена ";
         } catch (FileNotFoundException e){
             throw new MyFileNotFoundException(file_name, e.fillInStackTrace().toString());

@@ -22,7 +22,7 @@ public class Animal extends AnimalType implements AnimalItemsList, Serializable 
 
     public String getAnimalInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" | Животное: id - ");
+        sb.append(" | Питомец: id - ");
         sb.append(id);
         sb.append(", имя - ");
         sb.append(getName());
