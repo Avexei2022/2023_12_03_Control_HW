@@ -27,14 +27,12 @@ public class HumanFriendsDB implements Serializable {
     private final AnimalList animal_list;
     private final CommandList command_list;
     private final ACList<PetCommand> ac_list;
-//    private final Counter pets_count;
     public HumanFriendsDB(){
         group_list = new GroupList();
         type_list = new TypeList();
         animal_list = new AnimalList();
         command_list = new CommandList();
         ac_list = new ACList<>();
-//        pets_count = new Counter();
     }
 
     public String addGroup(String name) {
@@ -61,10 +59,10 @@ public class HumanFriendsDB implements Serializable {
 
     public String addAnimal(int groupId, String name, LocalDate birthday) throws ThisAppException{
         String info;
-        try (Counter pets_count = new Counter()) {
+        try (Counter counter = Counter.getCounter()) {
             Animal animal = new Animal(groupId, name, birthday);
             if (animal_list.addBaseToList(animal)) {
-                pets_count.add();
+                counter.add();
                 info = "\n Вид: " + name + " добавлен в реестр.\n";
             } else {
                 info = "\n Вид:  " + name + " уже существует в реестре.\n";
@@ -171,6 +169,7 @@ public class HumanFriendsDB implements Serializable {
             for (Base type : type_list) {
                 sb.append(group_list.getById(((AnimalType) type).getParentId())
                         .toString());
+                sb.append("\n\t");
                 sb.append(type);
                 sb.append("\n");
             }
@@ -188,8 +187,10 @@ public class HumanFriendsDB implements Serializable {
                 sb.append(group_list.getById(((AnimalType) type_list
                                 .getById(animal.getParentId())).getParentId())
                         .toString());
+                sb.append("\n\t");
                 sb.append(type_list.getById(animal.getParentId())
                         .toString());
+                sb.append("\n\t\t");
                 sb.append(animal);
                 sb.append(" | Обучен командам: ");
                 sb.append(getInfoPetCommandByAnimalID(animal.getId()));
@@ -228,16 +229,20 @@ public class HumanFriendsDB implements Serializable {
         return animal_list.getNameById(animal_id);
     }
 
-    public String counter() throws ThisAppException {
+    public String getStringPetsCount() throws ThisAppException {
         StringBuilder sb = new StringBuilder();
-        try (Counter pets_count = new Counter()) {
+        try (Counter counter = Counter.getCounter()) {
             sb.append("\nУ вас ");
-            sb.append(pets_count.getPetsCount());
+            sb.append(counter.getPetsCount());
             sb.append(" питомцев.\n");
         } catch (Exception e){
             throw new MyAutoCloseableException("Проблема со счетчиком питомцев", e.fillInStackTrace().toString());
         }
         return sb.toString();
+    }
+
+    public int getAnimalListSize(){
+        return animal_list.getSize();
     }
 
 }

@@ -40,6 +40,14 @@ public abstract class BaseList <E extends Base> implements Serializable, Iterabl
         return null;
     }
 
+    public int getSize() {
+        int size = 0;
+        if (!base_list.isEmpty()) {
+            size = base_list.size();
+        }
+        return size;
+    }
+
     public boolean checkIsId(int id){
         for (E base : base_list){
             if (base.getId() == id){
